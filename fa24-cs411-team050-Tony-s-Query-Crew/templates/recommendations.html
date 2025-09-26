@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <main>
+      <h1>Recommended Courses</h1>  
+  </main>
+  <script src="index.js"></script>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CourseReco</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <form action="/recommendation_query" method="POST">
+      <input type="text" name="subject_query" id="subject_query">
+      <input type="submit" value="Submit">
+    </form>
+
+    <body>
+      {% for table in tables %}
+                  {{titles[loop.index]}}
+                  {{ table|safe }}
+      {% endfor %}
+      </body>
+  </head>
+  <body>
+    <br>
+    <form action="/">
+      <input type="submit" value="Return to Homepage">
+    </form>
+  </body>
+</html>

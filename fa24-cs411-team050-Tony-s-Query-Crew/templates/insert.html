@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- <script src="index.js"></script> -->
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourseReco</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <main>
+        <h1>Welcome to CourseReco</h1>  
+    </main>
+    {% block content %}
+  <div class="container mt-4">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show shadow-lg rounded">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>Notice:</strong> {{ message }}
+    </div>
+    {% endfor %}
+    {% block page_content %}{% endblock %}
+  </div>
+  {% endblock%}
+    <form action="/recommendations" method="POST">
+      <label for="name">First & Last Name:</label>
+      <input type="name" id="name" name="name">
+      <br>
+      <label for="netid">NetID:</label>
+      <input type="netid" id="netid" name="netid">
+      <br>
+      <label for="year">Grade Year:</label><br>
+      <select name="year" id="year">
+        <option value="2028">Freshman</option>
+        <option value="2027">Sophomore</option>
+        <option value="2026">Junior</option>
+        <option value="2025">Senior</option>
+      </select>
+      <br>
+      <label for="major">Major:</label><br>
+      <input type="text" id="major" name="major">
+      <br>
+      <label for="credithours">How Many CreditHours You Have Taken:</label><br>
+      <input type="credithours" id="credithours" name="credithours">
+      <br>
+      <label for="classes_taken_subject">Classes Taken: (please enter in form (Subject Number) separated by commas. ex: CS 124, CS 128)</label><br>
+      <input type="text" id="classes_taken" name="classes_taken">
+      <br>
+      <!-- <label for="classes_taken_number">Class Taken Course Number:</label><br>
+      <input type="text" id="classes_taken" name="classes_taken">
+      <br> -->
+      <label for="online_inperson">Online/In-Person:</label><br>
+      <select name="online_inperson" id="online_inperson">
+        <option>Online</option>
+        <option>In-Person</option>
+      </select>
+      <label for="credit_hrs">Credit Hours Per Class:</label><br>
+      <select name="credit_hrs" id="credit_hrs">
+        <option value="one">1</option>
+        <option value="two">2</option>
+        <option value="three">3</option>
+        <option value="four">4</option>
+      </select>
+      <br>
+      <label for="gpa_weight">GPA Weight:</label><br>
+      <select name="gpa_weight" id="gpa_weight">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+      </select>
+      <br>
+      <label for="professor_weight">Professor Weight:</label><br>
+      <select name="professor_weight" id="professor_weight">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+      </select>
+      <br>
+      <label for="credits_weight">Credits Weight:</label><br>
+      <select name="credits_weight" id="credits_weight">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+      </select>
+      <br>
+      <!-- <label for="avg_gpa">Average GPA:</label><br>
+      <select name="avg_gpa" id="avg_gpa">
+        <option>3.7 to 4.0</option>
+        <option>3.3 to 3.7</option>
+        <option>3.0 to 3.3</option>
+        <option>2.7 or less</option>
+      </select>
+      <br>
+      <label for="prof_score">Professor Score:</label><br>
+      <select name="prof_score" id="prof_score">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+      </select>
+      <br>
+      <label for="online_inperson">Online/In-Person:</label><br>
+      <select name="online_inperson" id="online_inperson">
+        <option>Online</option>
+        <option>In-Person</option>
+      </select> -->
+      <input type="submit" value="Submit">
+    </form>
+    <form action="/">
+      <input type="submit" value="Return to Homepage">
+    </form>
+  </body>
+</html>

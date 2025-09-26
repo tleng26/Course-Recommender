@@ -1,0 +1,38 @@
+DELIMITER $$ 
+CREATE PROCEDURE GetUserPreferencesWithEnrollments(
+    IN inputNetID VARCHAR(10)
+) 
+BEGIN 
+SELECT (*) FROM User u JOIN Preference p ON u.NetID = p.NetID JOIN Enrollments e ON u.NetID = e.NetID WHERE ( u.NetID = inputNetID AND EXISTS ( SELECT 1 FROM Preference p2 WHERE p2.GPAWeight > 0 ) ); 
+END
+$$ DELIMITER;
+
+
+
+
+DELIMITER $$
+CREATE PROCEDURE GetCourseInfo(
+    IN netid VARCHAR(255),
+    IN rank_one VARCHAR(255),
+    IN rank_two VARCHAR(255),
+    IN rank_three VARCHAR(255)
+)
+BEGIN
+    SELECT 
+        s.Subject, 
+        s.CourseNumber, 
+        s.CRN, 
+        c.AvgGPA, 
+        c.Credits, 
+        s.ProfName, 
+        p.Rating
+    FROM Section s
+    JOIN Courses c ON c.CourseNumber = s.CourseNumber AND c.Subject = s.Subject
+    JOIN Professor p ON p.ProfName = s.ProfName
+    JOIN Prerequisites pre ON pre.CourseNumber = s.CourseNumber AND pre.Subject = s.Subject
+    JOIN TiedTo t ON t.Subject = c.Subject AND t.CourseNumber = s.CourseNumber
+    WHERE t.MajorName = (SELECT MajorName FROM User WHERE NetID = netid)
+    GROUP BY s.CRN
+    ORDER BY rank_one, rank_two, rank_three;
+END$$
+DELIMITER ;
